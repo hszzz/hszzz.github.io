@@ -18,7 +18,7 @@
   <meta name="author" content="hszzz">
   <meta name="keywords" content="">
   
-  <title>about - Miti</title>
+  <title>关于 - Miti</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -161,7 +161,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="about">
+            <span class="h2" id="subtitle" title="关于">
               
             </span>
 
@@ -180,13 +180,75 @@
         <div class="py-5" id="board"
           >
           
+            <div class="about-avatar">
+              <img src="/img/avatar.png" srcset="/img/loading.gif" lazyload
+                   class="img-fluid" alt="avatar">
+            </div>
+          
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<article class="page-content">
-  <h3 id="关于我"><a href="#关于我" class="headerlink" title="关于我"></a>关于我</h3><h3 id="关于"><a href="#关于" class="headerlink" title="关于"></a>关于</h3>
+<div class="text-center">
+  <div class="about-info">
+    <div class="about-name">hszzz</div>
+    <div class="about-intro">In me the tiger sniffs the rose.</div>
+    <div class="about-icons">
+      
+        
+        
+        
+        <a target="_blank" rel="noopener" href="https://github.com/hszzz" class="
+           hint--bottom hint--rounded"
+           aria-label=GitHub
+        >
+          <i class="iconfont icon-github-fill" aria-hidden="true"></i>
+          
+        </a>
+      
+        
+        
+        
+        <a target="_blank" rel="noopener" href="https://douban.com" class="
+           hint--bottom hint--rounded"
+           aria-label=豆瓣
+        >
+          <i class="iconfont icon-douban-fill" aria-hidden="true"></i>
+          
+        </a>
+      
+        
+        
+        
+        <a href="javascript:;" class="qr-trigger
+           "
+           
+        >
+          <i class="iconfont icon-wechat-fill" aria-hidden="true"></i>
+          
+            <img class="qr-img" src="/img/favicon.png" srcset="/img/loading.gif" lazyload alt="qrcode" />
+          
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+<article class="about-content page-content mt-5">
+  <div class="markdown-body">
+    <div id="github-wall">
+  <div>
+    <div>
+      <!--这里通过js挂载githubcalendar，也就是画画-->
+    </div>
+  </div>
+</div>
+
+
+
+
+  </div>
 
   
 </article>
@@ -361,5 +423,26 @@
 <script  src="/js/boot.js" ></script>
 
 
-</body>
+<!-- hexo injector body_end start -->
+  <script data-pjax src="https://cdn.jsdelivr.net/gh/Zfour/hexo-github-calendar@1.21/hexo_githubcalendar.js"></script>
+  <script data-pjax>
+        function GithubCalendarConfig(){
+            var git_githubapiurl ="https://python-github-calendar-api.vercel.app/api?hszzz";
+            var git_color =['#ebedf0', '#fdcdec', '#fc9bd9', '#fa6ac5', '#f838b2', '#f5089f', '#c4067e', '#92055e', '#540336', '#48022f', '#30021f'];
+            var git_user ="hszzz";
+            var parent_div_git = document.getElementById('github-wall');
+            var git_div_html = '<div class="recent-post-item" style="width:100%;height:auto;padding:10px;"><div id="github_loading" style="width:10%;height:100%;margin:0 auto;display: block"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  viewBox="0 0 50 50" style="enable-background:new 0 0 50 50" xml:space="preserve"><path fill="#d0d0d0" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z" transform="rotate(275.098 25 25)"><animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="0.6s" repeatCount="indefinite"></animateTransform></path></svg></div><div id="github_container"></div></div>';
+            if(parent_div_git && location.pathname =='/about/'){
+                console.log('已挂载github calendar')
+                // parent_div_git.innerHTML=git_div_html+parent_div_git.innerHTML // 无报错，但不影响使用(支持pjax跳转)
+                parent_div_git.insertAdjacentHTML("afterbegin",git_div_html) // 有报错，但不影响使用(支持pjax跳转)
+            };
+            GithubCalendar(git_githubapiurl,git_color,git_user)
+        }
+        if(document.getElementById('github-wall')){
+            GithubCalendarConfig()
+        }
+    </script>
+    <style>#github_container{min-height:280px}@media screen and (max-width:650px) {#github_container{background-image:;min-height:0px}}</style>
+    <style></style><!-- hexo injector body_end end --></body>
 </html>
