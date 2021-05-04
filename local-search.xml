@@ -4,13 +4,21 @@
   
   
   <entry>
-    <title>hello</title>
-    <link href="/2021/05/02/hello/"/>
-    <url>/2021/05/02/hello/</url>
+    <title>怎样写一个可以自动推导依赖的 makefile ？</title>
+    <link href="/2021/05/02/makefile/"/>
+    <url>/2021/05/02/makefile/</url>
     
-    <content type="html"><![CDATA[]]></content>
+    <content type="html"><![CDATA[<h2 id="什么是-make-和-makefile-？"><a href="#什么是-make-和-makefile-？" class="headerlink" title="什么是 make 和 makefile ？"></a>什么是 make 和 makefile ？</h2><p>直白地举一个例子，我们使用 gcc 编译一个简单的 c 程序的时候，使用到的命令可能是这样的：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc test.c -o <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure><p>项目小的时候像这样没啥问题，如果你的项目太大了，有几千几万个文件。这时该怎么写呢？另外。你还需要考虑：</p><ul><li>项目的一个文件修改了，有必要重新编译整个项目吗？</li><li>项目文件之间有相互依赖，怎么处理编译顺序？</li><li>如何根据系统的环境来执行不同的编译命令？</li><li>…</li></ul><p>这些都可以通过 make 和 makefile 做到。<strong>makefile 中就是需要各种依赖和命令，make 来负责对 makefile 中的命令进行解析。</strong></p>]]></content>
     
     
+    
+    <tags>
+      
+      <tag>linux</tag>
+      
+      <tag>makefile</tag>
+      
+    </tags>
     
   </entry>
   
