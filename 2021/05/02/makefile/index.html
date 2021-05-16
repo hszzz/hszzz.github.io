@@ -190,7 +190,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      404 字
+      550 字
     </span>
   
 
@@ -200,7 +200,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
        分钟
     </span>
   
@@ -242,13 +242,13 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年5月14日 晚上
+                  本文最后更新于：2021年5月16日 晚上
                 
               </p>
             
             <div class="markdown-body">
               <blockquote>
-<p>本文不对假设读者对 makefile 有足够多的了解，所以不对一些基础内容作过多的解释。</p>
+<p>本文假设读者对 makefile 有足够多的了解，所以不对一些基础内容作过多的解释。</p>
 </blockquote>
 <h2 id="为什么需要自动推导依赖？"><a href="#为什么需要自动推导依赖？" class="headerlink" title="为什么需要自动推导依赖？"></a>为什么需要自动推导依赖？</h2><p>我们知道，一个 c 文件可能会依赖很多头文件。但是在使用模式匹配的时候，往往是不会在规则后加上头文件的。一般的后缀规则大致都长这个样：</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs makefile">%.o : %.c<br>	<span class="hljs-variable">$(CC)</span> -o <span class="hljs-variable">$@</span> -c <span class="hljs-variable">$^</span><br></code></pre></td></tr></table></figure>
@@ -269,8 +269,11 @@
 <li>头文件改动后，只会重新编译依赖该头文件的目标文件</li>
 </ul>
 <p>来康康吧。🐶</p>
-<h3 id="gcc-MM-E-和-sed"><a href="#gcc-MM-E-和-sed" class="headerlink" title="gcc -MM -E 和 sed"></a><code>gcc -MM -E</code> 和 <code>sed</code></h3><p><code>gcc -MM -E</code> 可以输出目标文件的依赖，包括头文件。配合 <code>sed</code> 使用，可以生成我们需要的依赖格式。</p>
-<h3 id="include"><a href="#include" class="headerlink" title="include"></a><code>include</code></h3>
+<h2 id="gcc-MM-E-和-sed"><a href="#gcc-MM-E-和-sed" class="headerlink" title="gcc -MM -E 和 sed"></a><code>gcc -MM -E</code> 和 <code>sed</code></h2><p><code>gcc -MM -E</code> 可以输出目标文件的依赖，包括头文件。配合 <code>sed</code> 使用，可以生成我们需要的依赖格式。</p>
+<h2 id="include"><a href="#include" class="headerlink" title="include"></a><code>include</code></h2><p>makefile 中的 <code>include</code> 和 C 语言中的差不太多。就是将其他文件的内容搬入当前文件中。</p>
+<h2 id="最终方案"><a href="#最终方案" class="headerlink" title="最终方案"></a>最终方案</h2><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs makefile">.PHONY : all clean rebuild<br><br>CC := gcc<br>RM := rm -fr<br>MKDIR := mkdir<br><br>DIR_DEPS := deps<br>DIR_OBJS := objs<br>DIR_EXES := exes<br><br>DIRS := <span class="hljs-variable">$(DIR_DEPS)</span> <span class="hljs-variable">$(DIR_OBJS)</span> <span class="hljs-variable">$(DIR_EXES)</span><br><br>EXE := target<br>EXE := <span class="hljs-variable">$(<span class="hljs-built_in">addprefix</span> <span class="hljs-variable">$(DIR_EXES)</span>/,<span class="hljs-variable">$(EXE)</span>)</span><br><br>SRCS := <span class="hljs-variable">$(<span class="hljs-built_in">wildcard</span> *.c)</span><br>OBJS := $(SRCS:.c=.o)<br>OBJS := <span class="hljs-variable">$(<span class="hljs-built_in">addprefix</span> <span class="hljs-variable">$(DIR_OBJS)</span>/,<span class="hljs-variable">$(OBJS)</span>)</span><br>DEPS := $(SRCS:.c=.dep)<br>DEPS := <span class="hljs-variable">$(<span class="hljs-built_in">addprefix</span> <span class="hljs-variable">$(DIR_DEPS)</span>/,<span class="hljs-variable">$(DEPS)</span>)</span><br><br>all : <span class="hljs-variable">$(DIR_OBJS)</span> <span class="hljs-variable">$(DIR_EXES)</span> <span class="hljs-variable">$(EXE)</span><br><br><span class="hljs-keyword">ifeq</span> (<span class="hljs-string">&quot;<span class="hljs-variable">$(MAKECMDGOALS)</span>&quot;</span>, <span class="hljs-string">&quot;all&quot;</span>)<br><span class="hljs-keyword">-include</span> <span class="hljs-variable">$(DEPS)</span><br><span class="hljs-keyword">endif</span><br><br><span class="hljs-keyword">ifeq</span> (<span class="hljs-string">&quot;<span class="hljs-variable">$(MAKECMDGOALS)</span>&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br><span class="hljs-keyword">-include</span> <span class="hljs-variable">$(DEPS)</span><br><span class="hljs-keyword">endif</span><br><br><span class="hljs-variable">$(EXE)</span> : <span class="hljs-variable">$(OBJS)</span><br>        <span class="hljs-variable">$(CC)</span> -o <span class="hljs-variable">$@</span> <span class="hljs-variable">$^</span><br><br><span class="hljs-variable">$(DIR_OBJS)</span>/%.o : %.c<br>        <span class="hljs-variable">$(CC)</span> -o <span class="hljs-variable">$@</span> -c <span class="hljs-variable">$(<span class="hljs-built_in">filter</span> %.c,<span class="hljs-variable">$^</span>)</span><br><br><span class="hljs-keyword">ifeq</span> (<span class="hljs-string">&quot;$(wildcard <span class="hljs-variable">$(DIR_DEPS)</span>)&quot;</span>, <span class="hljs-string">&quot;&quot;</span>)<br><span class="hljs-variable">$(DIR_DEPS)</span>/%.dep : <span class="hljs-variable">$(DIR_DEPS)</span> %.c<br><span class="hljs-keyword">else</span><br><span class="hljs-variable">$(DIR_DEPS)</span>/%.dep : %.c<br><span class="hljs-keyword">endif</span><br>        @set -e;\<br>        <span class="hljs-variable">$(CC)</span> -MM -E <span class="hljs-variable">$(<span class="hljs-built_in">filter</span> %.c,<span class="hljs-variable">$^</span>)</span> | sed &#x27;s,\(.*\)\.o[ :]*,objs/\1.o <span class="hljs-variable">$@</span> : ,g&#x27; &gt; <span class="hljs-variable">$@</span><br><br><span class="hljs-variable">$(DIRS)</span> :<br>        <span class="hljs-variable">$(MKDIR)</span> <span class="hljs-variable">$@</span><br><br>clean :<br>        <span class="hljs-variable">$(RM)</span> <span class="hljs-variable">$(DIRS)</span><br><br>rebuild :<br>        <span class="hljs-variable">$(MAKE)</span> clean<br>        <span class="hljs-variable">$(MAKE)</span> all<br></code></pre></td></tr></table></figure>
+
+
             </div>
             <hr>
             <div>
