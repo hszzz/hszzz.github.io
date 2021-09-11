@@ -15,8 +15,7 @@ paginate = 3 # articles per page
 avatar = "https://avatars.githubusercontent.com/hszzz"
 mode = "light"
 featherIconsCDN = true
-subtitle = ""
-excludedTypes = ["page", "pages"]
+subtitle = "In me the tiger sniff rose."
 
 [[params.social]]
 icon = "github"
