@@ -1,18 +1,15 @@
 baseURL = 'https://blog.hszzz.me/'
 copyright: '@ Shih'
 languageCode = 'en-us'
-title = 'Shih's Blog'
+title = "Shih's Blog"
 
 theme = 'hugo-ink'
 
-# Code Highlight
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
 pygmentsstyle = "vs"
 
 paginate = 3 # articles per page
-
-# googleAnalytics = 
 
 [params]
 avatar = "https://avatars.githubusercontent.com/hszzz"
