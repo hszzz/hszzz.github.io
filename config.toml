@@ -1,5 +1,5 @@
 baseURL = 'https://blog.hszzz.me/'
-copyright: '@ Shih'
+copyright = '@ Shih'
 languageCode = 'en-us'
 title = "Shih's Blog"
 
