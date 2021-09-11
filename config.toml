@@ -1,3 +1,33 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://blog.hszzz.me/'
+copyright: '@ Shih'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Shih's Blog'
+
+theme = 'hugo-ink'
+
+# Code Highlight
+pygmentscodefences = true
+pygmentscodefencesguesssyntax = true
+pygmentsstyle = "vs"
+
+paginate = 3 # articles per page
+
+# googleAnalytics = 
+
+[params]
+avatar = "https://avatars.githubusercontent.com/hszzz"
+mode = "light"
+featherIconsCDN = true
+subtitle = ""
+excludedTypes = ["page", "pages"]
+
+[[params.social]]
+icon = "github"
+name = "GitHub"
+url = "https://github.com/hszzz"
+
+[markup]
+  defaultMarkdownHandler = "goldmark"
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
