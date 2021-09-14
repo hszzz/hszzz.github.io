@@ -3,7 +3,7 @@ copyright = '@ Shih'
 languageCode = 'en-us'
 title = "Shih's Blog"
 
-theme = 'hugo-ink'
+theme = "hugo-ink"
 
 pygmentscodefences = true
 pygmentscodefencesguesssyntax = true
@@ -16,6 +16,7 @@ avatar = "https://avatars.githubusercontent.com/hszzz"
 mode = "light"
 featherIconsCDN = true
 subtitle = "In me the tiger sniff rose."
+excludedTypes = ["page", "pages"]
 
 [[params.social]]
 icon = "github"
